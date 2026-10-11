@@ -1,7 +1,7 @@
 use paste::paste;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
-pub enum PkmnType {
+pub enum Types {
     Normal,
     Grass,
     Fire,
@@ -22,8 +22,8 @@ pub enum PkmnType {
     Fairy,
 }
 
-impl PkmnType {
-    pub fn get_resistances(r#type: PkmnType) -> &'static [PkmnType] {
+impl Types {
+    pub fn get_resistances(r#type: Types) -> &'static [Types] {
         match r#type {
             Self::Normal => NORMAL_RESISTANCES,
             Self::Grass => GRASS_RESISTANCES,
@@ -46,7 +46,7 @@ impl PkmnType {
         }
     }
 
-    pub fn get_weaknesses(r#type: PkmnType) -> &'static [PkmnType] {
+    pub fn get_weaknesses(r#type: Types) -> &'static [Types] {
         match r#type {
             Self::Normal => NORMAL_WEAKNESSES,
             Self::Grass => GRASS_WEAKNESSES,
@@ -69,7 +69,7 @@ impl PkmnType {
         }
     }
 
-    pub fn get_immunities(r#type: PkmnType) -> &'static [PkmnType] {
+    pub fn get_immunities(r#type: Types) -> &'static [Types] {
         match r#type {
             Self::Normal => NORMAL_IMMUNITIES,
             Self::Grass => GRASS_IMMUNITIES,
@@ -96,9 +96,9 @@ impl PkmnType {
 macro_rules! define_type {
     ($type:ty, [$($resist:ty),*], [$($weak:ty),*], [$($immune:ty),*] ) => {
         paste! {
-            const [<$type:upper _RESISTANCES>]: &[PkmnType] = &[$(PkmnType::$resist),*];
-            const [<$type:upper _WEAKNESSES>]: &[PkmnType] = &[$(PkmnType::$weak),*];
-            const [<$type:upper _IMMUNITIES>]: &[PkmnType] = &[$(PkmnType::$immune),*];
+            const [<$type:upper _RESISTANCES>]: &[Types] = &[$(Types::$resist),*];
+            const [<$type:upper _WEAKNESSES>]: &[Types] = &[$(Types::$weak),*];
+            const [<$type:upper _IMMUNITIES>]: &[Types] = &[$(Types::$immune),*];
         }
 
     }
