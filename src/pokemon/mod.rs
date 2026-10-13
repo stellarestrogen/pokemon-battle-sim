@@ -22,9 +22,26 @@ pub struct Pokemon {
 
 impl Pokemon {
     pub fn calculate_stats(&self) -> Stats<u32> {
-        let hp = self.calculate_hp();
+        Stats::new(
+            self.calculate_hp(),
+            self.calculate_other_stat(StatType::Attack),
+            self.calculate_other_stat(StatType::SpecialAttack),
+            self.calculate_other_stat(StatType::SpecialAttack),
+            self.calculate_other_stat(StatType::SpecialDefense),
+            self.calculate_other_stat(StatType::Speed),
+        )
+    }
 
-        
+    pub fn get_base_stat(&self, stat: StatType) -> u8 {
+        self.base_stats.get_stat(stat)
+    }
+
+    pub fn get_iv(&self, stat: StatType) -> u8 {
+        self.ivs.get_stat(stat)
+    }
+
+    pub fn get_ev(&self, stat: StatType) -> u8 {
+        self.evs.get_stat(stat)
     }
 
     fn calculate_hp(&self) -> u32 {
@@ -38,5 +55,23 @@ impl Pokemon {
         let hp_ev = self.evs.get_stat(hp) as u32;
 
         ((2 * hp_base + hp_iv + hp_ev / 4) * self.level) / 100 + self.level + 10
+    }
+
+    fn calculate_other_stat(&self, stat: StatType) -> u32 {
+        let base = self.get_base_stat(stat) as u32;
+        let iv = self.get_iv(stat) as u32;
+        let ev = self.get_ev(stat) as u32;
+
+        let nature_modifier: f32 = if self.nature.is_nature_neutral() {
+            1.
+        } else if self.nature.get_stat_boost() == stat {
+            1.1
+        } else if self.nature.get_stat_drop() == stat {
+            0.9
+        } else {
+            1.
+        };
+
+        ((((2 * base + iv + ev / 4) * self.level) / 100 + 5) as f32 * nature_modifier) as u32
     }
 }
