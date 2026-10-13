@@ -1,17 +1,22 @@
+use crate::pokemon::types::Types;
+
 pub mod data;
 pub mod r#move;
 pub mod types;
 
+#[derive(Debug)]
 pub struct Pokemon {
+    species: String,
     base_stats: Stats,
     IVs: IndividualValues,
     EVs: EffortValues,
-
+    types: heapless::Vec<Types, 3>,
     level: u32,
     nature: Nature,
 }
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Stats {
     hp: u8,
     attack: u8,
@@ -52,6 +57,7 @@ impl Stats {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct IndividualValues(Stats);
 
 impl IndividualValues {
@@ -66,6 +72,7 @@ impl IndividualValues {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct EffortValues(Stats);
 
 impl EffortValues {
@@ -79,6 +86,7 @@ impl EffortValues {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Nature {
     Hardy,
     Lonely,

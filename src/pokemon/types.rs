@@ -1,6 +1,6 @@
 use paste::paste;
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Types {
     Normal,
     Grass,
