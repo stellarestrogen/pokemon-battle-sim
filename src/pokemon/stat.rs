@@ -92,6 +92,12 @@ impl IndividualValues {
     }
 }
 
+impl Default for IndividualValues {
+    fn default() -> Self {
+        Self(Stats::new(0, 0, 0, 0, 0, 0))
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct EffortValues(Stats<u8>);
 
@@ -107,5 +113,11 @@ impl EffortValues {
 
     pub fn get_stat(&self, stat: StatType) -> u8 {
         self.0.get_stat(stat)
+    }
+}
+
+impl Default for EffortValues {
+    fn default() -> Self {
+        Self(Stats::new(0, 0, 0, 0, 0, 0))
     }
 }
