@@ -4,6 +4,8 @@ use crate::pokemon::{
     types::Types,
 };
 
+pub mod ability;
+pub mod battle_effects;
 pub mod r#move;
 pub mod nature;
 pub mod stat;
@@ -22,14 +24,14 @@ pub struct Pokemon {
 
 impl Pokemon {
     pub fn calculate_stats(&self) -> Stats<u32> {
-        Stats::new(
-            self.calculate_hp(),
-            self.calculate_other_stat(StatType::Attack),
-            self.calculate_other_stat(StatType::SpecialAttack),
-            self.calculate_other_stat(StatType::SpecialAttack),
-            self.calculate_other_stat(StatType::SpecialDefense),
-            self.calculate_other_stat(StatType::Speed),
-        )
+        let hp = self.calculate_hp();
+        let attack = self.calculate_other_stat(StatType::Attack);
+        let defense = self.calculate_other_stat(StatType::Defense);
+        let special_attack = self.calculate_other_stat(StatType::SpecialAttack);
+        let special_defense = self.calculate_other_stat(StatType::SpecialDefense);
+        let speed = self.calculate_other_stat(StatType::Speed);
+
+        Stats::new(hp, attack, defense, special_attack, special_defense, speed)
     }
 
     pub fn get_base_stat(&self, stat: StatType) -> u8 {

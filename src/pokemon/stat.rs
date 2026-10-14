@@ -60,6 +60,17 @@ impl<T: Num + Clone + Copy> Stats<T> {
             StatType::Speed => self.speed,
         }
     }
+
+    pub fn set_stat(&mut self, stat: StatType, value: T) {
+        match stat {
+            StatType::HP => self.hp = value,
+            StatType::Attack => self.attack = value,
+            StatType::Defense => self.defense = value,
+            StatType::SpecialAttack => self.special_attack = value,
+            StatType::SpecialDefense => self.special_defense = value,
+            StatType::Speed => self.speed = value,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
