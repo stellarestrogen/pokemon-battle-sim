@@ -77,7 +77,12 @@ impl<T: Num + Clone + Copy> Stats<T> {
 pub struct IndividualValues(Stats<u8>);
 
 impl IndividualValues {
-    pub fn new(stats: Stats<u8>) -> Option<Self> {
+    pub fn new(hp: u8, attack: u8, defense: u8, special_attack: u8, special_defense: u8, speed: u8) -> Option<Self> {
+        let stats = Stats::new(hp, attack, defense, special_attack, special_defense, speed);
+        Self::from_stats(stats)
+    }
+
+    pub fn from_stats(stats: Stats<u8>) -> Option<Self> {
         for stat in stats.values() {
             if stat > 31 {
                 return None;
