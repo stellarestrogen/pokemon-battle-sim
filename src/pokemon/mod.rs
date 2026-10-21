@@ -9,6 +9,7 @@ use crate::pokemon::{
 pub mod ability;
 pub mod battle_stats;
 pub mod effects;
+pub mod item;
 pub mod r#move;
 pub mod nature;
 pub mod stat;
