@@ -6,6 +6,9 @@ use crate::pokemon::{
     types::Types,
 };
 
+#[cfg(test)]
+pub mod test;
+
 pub mod ability;
 pub mod effects;
 pub mod item;
@@ -13,8 +16,6 @@ pub mod r#move;
 pub mod nature;
 pub mod stat;
 pub mod stat_modifier;
-#[cfg(test)]
-pub mod test;
 pub mod types;
 
 #[derive(Debug)]
