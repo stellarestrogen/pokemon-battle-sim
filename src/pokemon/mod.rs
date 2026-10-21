@@ -1,18 +1,19 @@
 use crate::pokemon::{
-    stat_modifier::StatModifier,
     r#move::Move,
     nature::Nature,
     stat::{EffortValues, IndividualValues, StatType, Stats},
+    stat_modifier::StatModifier,
     types::Types,
 };
 
 pub mod ability;
-pub mod stat_modifier;
 pub mod effects;
 pub mod item;
 pub mod r#move;
 pub mod nature;
 pub mod stat;
+pub mod stat_modifier;
+#[cfg(test)]
 pub mod test;
 pub mod types;
 
