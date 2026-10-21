@@ -12,7 +12,7 @@ pub enum StatType {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Stats<T> {
-    hp: T,
+    max_hp: T,
     attack: T,
     defense: T,
     special_attack: T,
@@ -22,7 +22,7 @@ pub struct Stats<T> {
 
 impl<T: Num + Clone + Copy> Stats<T> {
     pub fn new(
-        hp: T,
+        max_hp: T,
         attack: T,
         defense: T,
         special_attack: T,
@@ -30,7 +30,7 @@ impl<T: Num + Clone + Copy> Stats<T> {
         speed: T,
     ) -> Self {
         Self {
-            hp,
+            max_hp,
             attack,
             defense,
             special_attack,
@@ -41,7 +41,7 @@ impl<T: Num + Clone + Copy> Stats<T> {
 
     pub fn values(&self) -> [T; 6] {
         [
-            self.hp,
+            self.max_hp,
             self.attack,
             self.defense,
             self.special_attack,
@@ -52,7 +52,7 @@ impl<T: Num + Clone + Copy> Stats<T> {
 
     pub fn get_stat(&self, stat: StatType) -> T {
         match stat {
-            StatType::HP => self.hp,
+            StatType::HP => self.max_hp,
             StatType::Attack => self.attack,
             StatType::Defense => self.defense,
             StatType::SpecialAttack => self.special_attack,
@@ -63,7 +63,7 @@ impl<T: Num + Clone + Copy> Stats<T> {
 
     pub fn set_stat(&mut self, stat: StatType, value: T) {
         match stat {
-            StatType::HP => self.hp = value,
+            StatType::HP => self.max_hp = value,
             StatType::Attack => self.attack = value,
             StatType::Defense => self.defense = value,
             StatType::SpecialAttack => self.special_attack = value,
@@ -94,7 +94,7 @@ impl IndividualValues {
 
 impl Default for IndividualValues {
     fn default() -> Self {
-        Self(Stats::new(0, 0, 0, 0, 0, 0))
+        Self(Stats::new(31, 31, 31, 31, 31, 31))
     }
 }
 
@@ -102,7 +102,12 @@ impl Default for IndividualValues {
 pub struct EffortValues(Stats<u8>);
 
 impl EffortValues {
-    pub fn new(stats: Stats<u8>) -> Option<Self> {
+    pub fn new(hp: u8, attack: u8, defense: u8, special_attack: u8, special_defense: u8, speed: u8) -> Option<Self> {
+        let stats = Stats::new(hp, attack, defense, special_attack, special_defense, speed);
+        Self::from_stats(stats)
+    }
+
+    pub fn from_stats(stats: Stats<u8>) -> Option<Self> {
         let mut sum: u16 = 0;
         for stat in stats.values() {
             sum += stat as u16;
